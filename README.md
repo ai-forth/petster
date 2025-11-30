@@ -2,6 +2,8 @@
 
 The Axlon toy that serves as a future foundation.
 
+![catster](/images/petster-cat.JPG)
+
 ### Background
 
 Meet PetSter Deluxe - The electronic pet with a mind of it's own. PetSter Deluxe is the electronic pet with a microprocessor brain - housbroken, trained and waiting for your companionship. Just like a real pet. PetSter Deluxe thinks with a mind of its own - responding to commands, playing games with you and letting you know that it's having fun. You can command me to run around the house by myself, or:
@@ -18,6 +20,10 @@ The pet’s firmware architecture used an 8‑bit microcontroller Motorola 68H
 
 ### Behavior-in-code
 
-Disassemble the 
+Install the package:
+
+` wget https://debian.pkgs.org/11/debian-main-amd64/binutils-m68hc1x_2.35.1-3_amd64.deb.html`
+
+Disassemble the file:
 
 `m68hc11-objdump -b binary -m m68hc11 -D -a petster.bin > petster.asm`
