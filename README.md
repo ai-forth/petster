@@ -27,3 +27,9 @@ Install the package:
 Disassemble the file:
 
 `m68hc11-objdump -b binary -m m68hc11 -D -a petster.bin > petster.asm`
+
+Assume the ROM is mapped at 0x0000 and is a pure 8039 image:
+
+`srec_cat petster.bin -binary -offset 0x0 -output petster_8039.asm -disassemble -cpu mcs51`
+
+_Still a work in-progress_...
