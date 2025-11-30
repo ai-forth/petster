@@ -22,7 +22,7 @@ The pet’s firmware architecture used an 8‑bit microcontroller Motorola 68H
 
 Install the package:
 
-` wget https://debian.pkgs.org/11/debian-main-amd64/binutils-m68hc1x_2.35.1-3_amd64.deb.html`
+`wget http://ftp.de.debian.org/debian/pool/main/b/binutils-m68hc1x/binutils-m68hc1x_2.35.1-3_amd64.deb`
 
 Disassemble the file:
 
