@@ -16,7 +16,7 @@ Meet PetSter Deluxe - The electronic pet with a mind of it's own. PetSter Deluxe
 * Talk to me. I'll listen, then "talk" back to you.
 * I can "see" in front of me and avoid hitting obsticles.
 
-The pet’s firmware architecture used an 8‑bit microcontroller Motorola 68HC11 and an assembly‑language instruction set employed for its behavior routines. These devices run a custom ASM interpreter stored in a 4 KB ROM, with separate tables for sensor input processing and motor actuation, burned onto a 27C32.
+The pet’s firmware architecture used an Intel 8039 assembly‑language instruction set employed for its behavior routines. These devices run a custom ASM interpreter stored in a 4 KB ROM, with separate tables for sensor input processing and motor actuation, burned onto a 27C32. An appropriate set of [tools](/tools/README.md) are available.
 
 ### Behavior-in-code
 
