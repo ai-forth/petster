@@ -1,0 +1,12 @@
+Archive:  8749v1_2.zip
+ Length  Method   Size  Ratio   Date    Time   CRC-32     Name ("^" ==> case
+ ------  ------   ----  -----   ----    ----   ------     ----   conversion)
+ 452237  Implode  14741  97%  03-31-97  14:19  b0ec533f  ^eprommer.rbl
+ 452237  Implode  12349  97%  03-31-97  14:20  075659fb  ^eprommer.rtl
+ 452237  Implode  19066  96%  03-31-97  14:18  6a21e80f  ^eprommer.rto
+ 160256  Implode  11033  93%  04-02-97  22:34  b9475f60  ^eprommer.scp
+    692  Implode    526  24%  04-05-97  10:04  09073581  ^eprommer.txt
+   5542  Implode   1758  68%  04-02-97  18:37  7ecfb075  ^eprommer.pas
+   5562  Stored    5562   0%  03-31-97  14:37  6003a120  ^eprommer.exe
+ ------          ------  ---                              -------
+1528763           65035  96%                              7      

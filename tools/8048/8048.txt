@@ -1,0 +1,51 @@
+
+                          --The 8048 Clearing House--
+                                       
+   The 8048 is an 8-bit embedded controller from Intel. It's old
+   technology and can't compete with the newer generations of controllers
+   for speed or power. So, why do I like the 8048? For one thing they're
+   cheap and I have a bunch of them laying around. And, they are hardly
+   useless. They're great for personal robotics or general electronic
+   tinkering. But, it's hard to find information on the 'net about them
+   so I created "The 8048 Clearing House" to fill the void.
+   
+   Updated 19 Oct 97:
+     * Complete instruction set
+     * Better pinout diagram
+     * Corrupt 8048 disassembler program deleted and several new
+       utilities added
+     * A new example program
+     * Details of an 8749 programmer
+       
+   [LINK]Pinout and Data Sheets
+   [LINK]Architecture and Instruction Set
+   [LINK]Code Examples
+   [LINK]PC-Based Utilities
+   
+     _________________________________________________________________
+                                      
+                               Chip Features:
+                                      
+     8-bit timer/event counter
+     Two interrupts
+     Single 5-volt supply
+     Three 8-bit bi-directional I/O ports
+     Up to 256 bytes of data memory
+     Up to 4K of program memory 
+       
+                             The Family Album:
+                                      
+                    Device Internal Memory RAM Standby 
+                     8050AH 4K x 8 ROM 256 x 8 RAM Yes
+                     8049AH 2K x 8 ROM 128 x 8 RAM Yes
+                      8048AH 1K x 8 ROM 64 x 8 RAM Yes
+                        8040AHL None 256 x 8 RAM Yes
+                        8039AHL None 128 x 8 RAM Yes
+                        8035AHL None 64 x 8 RAM Yes
+                     P8749H 2K x 8 EPROM 128 x 8 RAM No
+                     P8748H 1K x 8 EPROM 64 x 8 RAM No
+                                      
+     _________________________________________________________________
+                                      
+                      Questions? Comments? Additions?
+             Send e-mail to Doug Kelley at dkelley@ebicom.net 

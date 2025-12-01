@@ -1,0 +1,25 @@
+Eprommer 8748/49;version 1.2
+
+I worked hard on a piece of hardware that is suitable for a 8748/49
+microprocessor. The PCB has been thouroughly tested and should
+work fine. 'Type file >lpt1' for print (can take a few minutest).
+
+Have fun,
+
+Simon Soft
+email: sjko@pi.net
+
+
+modifications on version 1.2:
+Forgotten 1 diode in scheme. No effect on PCB.
+
+modifications on version 1.1:
+Programming an OTP was no problem, however an erasable device could not be
+programmed. To solve this problem a resistor of 10 k is needed from
+pin 25 (Vpp) to ground.
+
+Some wiring inside the parallelconnector went wrong in the previous
+version.
+
+Added scheme and programsource (pascal).
+

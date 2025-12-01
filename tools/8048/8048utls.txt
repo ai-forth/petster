@@ -1,0 +1,43 @@
+
+               --The 8048 Clearing House (PC-Based Utilities)--
+                                       
+   All the utilities on this page have been scanned for viruses but, just
+   to be safe, you should re-scan them after you download them. I'm not
+   responsible for any junk you pick-up off the 'net! Now that the legal
+   stuff is out of the way, let's take a look at what we have. All the
+   programs listed here are DOS-based and either public domain or
+   shareware:
+   
+   s48v13.zip This is a nice little 8048 simulator. It isn't very fast
+   (it won't run in real-time unless you have an extremely fast computer)
+   but it does allow you to view registers, set breakpoints, set I/O port
+   values and trip an interrupt. It does not allow you to modify
+   registers or memory locations.
+   tasm_v28.zip TASM is a simple assembler which uses tables to assemble
+   code for different microcontrollers including the 8048 family. Tables
+   for many different chips are included in this file. This is the
+   assembler I use just so I don't have to read the instructions for
+   another assembler when I switch between different chips.
+   epasm13.zip EPASM is an assembler written specifically for the 8048.
+   Contributed by Rudolf Liberda.
+   ps48a12.zip PseudoSam is yet another assembler written specifically
+   for the 8048. Contributed by Rudolf Liberda.
+   8048dis.zip A disassembler for the 8048 family which includes the
+   Borland C source code. Contributed by Rudolf Liberda.
+   dasm48.zip Another disassembler which may be a bit more powerful than
+   8048dis but does not include source code. Several examples are
+   included. Contributed by Rudolf Liberda.
+     _________________________________________________________________
+                                      
+     _________________________________________________________________
+                                      
+   If you need to build a programmer for the 8048 series EPROMs then you
+   would be interested in this text file and the following two zipped
+   files:
+   
+   804xprgr.zip
+   8749v1_2.zip
+   
+     _________________________________________________________________
+                                      
+                      Back to The 8048 Clearing House 

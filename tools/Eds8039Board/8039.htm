@@ -1,0 +1,107 @@
+
+<script type="text/javascript" src="https://web-static.archive.org/_static/js/bundle-playback.js?v=Hk4-lkW3" charset="utf-8"></script>
+<script type="text/javascript" src="https://web-static.archive.org/_static/js/wombat.js?v=txqj7nKC" charset="utf-8"></script>
+<script>window.RufflePlayer=window.RufflePlayer||{};window.RufflePlayer.config={"autoplay":"on","unmuteOverlay":"hidden","showSwfDownload":true};</script>
+<script type="text/javascript" src="https://web-static.archive.org/_static/js/ruffle/ruffle.js"></script>
+<script type="text/javascript">
+    __wm.init("https://web.archive.org/web");
+  __wm.wombat("http://www.armory.com/~rstevew/Public/Micros/8048/Eds8039Board/8039.htm","20090107123658","https://web.archive.org/","web","https://web-static.archive.org/_static/",
+	      "1231331818");
+</script>
+<link rel="stylesheet" type="text/css" href="https://web-static.archive.org/_static/css/banner-styles.css?v=1utQkbB3" />
+<link rel="stylesheet" type="text/css" href="https://web-static.archive.org/_static/css/iconochive.css?v=3PDvdIFv" />
+<!-- End Wayback Rewrite JS Include -->
+<body bgcolor="ffdab9">
+
+<pre>
+
+
+A simple 8039 controller design
+-------------------------------
+
+<a href="https://web.archive.org/web/20090107123658/http://www.alphalink.net.au/~edsa/">by Ed, http://www.alphalink.net.au</a>
+
+
+This is a design for a simple 8039 based microcontroller.
+Included are schematics, pcb layouts and Protel DOS files.
+
+Any microprocessor in the 8048 family may be used. These
+include:
+
+	8035, 8039, 8040	external rom
+	8048, 8049		internal rom
+	8748, 8749		eprom
+
+In this design the internal program memory of the 804x
+and 874x chips are disabled - program instructions will
+be supplied by the external eprom.
+
+Links on the board allow for any eprom from 2716 to 27256
+to be used. (It should be noted the 8048 family may only
+address a maximum of 4k bytes of program memory, however).
+
+If one of the larger eproms is used (2764 or above) then
+link JP3 allows eprom memory in the range 1000h-1FFFh to
+be re-mapped to 0000h-0FFFh. This can be handy during
+program debugging - you get two chances of getting your
+program right before you need to erase the eprom and try
+again!
+
+A 20 pin IDC header brings out all the user-accessable
+I/O pins via a ribbon cable. The idea is that you can
+use the same micro board for any project - just plug in
+a different I/O card!
+
+The onboard power supply allows any voltage in the range
+9 to 12 volts AC or DC to be used.
+
+PCB layouts have been included for those having the
+means to make one. The PCB can be made single or
+double-sided. If single-sided is chosen, use wire links
+on the top of the board as shown in the 'top layer'
+drawing.
+
+An etched PCB is not essential, however. I have had
+good success simply using wire-wrap pcb board, standard
+dual-wipe IC sockets and simply solder point-to-point
+with wire-wrap wire.
+
+Any crystal in the range 2 to 12 MHz may be used but
+check the specifications of the microprocessor you will
+be using. (Some brands of 8039 require a minimum 6 MHz
+clock while 6MHz is the maximum for most 8748/49's.)
+
+The schematic and PCB files were produced using Protel
+DOS based software (Schematic and Autotrax).
+
+
+
+<img src="/web/20090107123658im_/http://www.armory.com/~rstevew/Public/Micros/8048/Eds8039Board/8039s.gif">
+
+<img src="/web/20090107123658im_/http://www.armory.com/~rstevew/Public/Micros/8048/Eds8039Board/8039o.gif">
+
+<img src="/web/20090107123658im_/http://www.armory.com/~rstevew/Public/Micros/8048/Eds8039Board/8039b.gif">
+
+<img src="/web/20090107123658im_/http://www.armory.com/~rstevew/Public/Micros/8048/Eds8039Board/8039t.gif">
+
+
+<!--
+     FILE ARCHIVED ON 12:36:58 Jan 07, 2009 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 08:14:30 Dec 01, 2025.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 0.574
+  exclusion.robots: 0.022
+  exclusion.robots.policy: 0.01
+  esindex: 0.011
+  cdx.remote: 13.474
+  LoadShardBlock: 92.657 (3)
+  PetaboxLoader3.datanode: 204.92 (4)
+  PetaboxLoader3.resolve: 215.339 (2)
+  load_resource: 350.661
+-->

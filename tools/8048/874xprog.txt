@@ -1,0 +1,238 @@
+
+     Hobby microprocessor projects don't have to be complex.  The
+typical microprocessor project consists of the processor, EPROM,
+RAM, address decoder circuitry, clock circuitry, input/output ports,
+and the ever present but essential "glue" components.  Things can
+further be complicated if a special purpose IC like an
+analog-to-digital converter is thrown in.  Then comes the pleasure
+of putting all of this on a circuit board, and most of the time the
+complexity of the circuit along with the placement of its components
+requires a double-sided circuit board!
+
+     Don't despair.  There is an easier and more enjoyable way to
+exercise your hobby.  This article will open the door to a more
+efficient approach to hobby microprocessor project design and
+construction.  Imagine a processor, EPROM, RAM, clock and
+input/output ports all integrated into a standard 40 pin package.
+Imagine a simple easy to build programmer for this IC that you can
+build in an evening for under $50.  If you've got a project that
+requires a microcontroller, then stop dreaming and read on as we
+describe an easy to build programmer for the 8748H and 8749H series
+of microcomputers.
+
+8748/49H DESCRIPTION
+
+     The 8748/49H is commonly referred to as a single-component
+8-bit microcomputer.  The instruction sets for the 8748H and 8749H
+are identical.  The 8749H contains 2K of EPROM and 128 bytes of RAM
+while the 8748H contains 1K of EPROM and 64 bytes of RAM.  This
+doesn't sound like a lot, but in most controller applications you
+will find the amounts of EPROM and RAM more than adequate.  If you
+do require extra RAM, you can hang it outboard just like you would
+with any other processor IC.  Otherwise both IC's include an
+interval timer/event counter, two single level interrupts, an
+internal oscillator, a true bi-directional bus, two latched
+quasi-bidirectional I/O ports, two testable input pins, and of
+course an 8-bit processor that executes over 96 instructions with
+most of them consisting of a single byte.  If you're short on I/O or
+memory, the 8748H/49H will accommodate most all of the common
+peripheral circuitry available for other microprocessors.  A minimum
+configuration consists of the 8748H/49H, a crystal, two 27pF disks,
+a 5 volt DC power source and a 1 uF reset capacitor.  I can go on
+extolling the virtues of this IC but that exceeds the scope of this
+article.  I would suggest that you request a data sheet when you
+purchase your 8748H/49H.  As for cross assemblers for the 8748H/49H,
+there are many in the public domain as there are many more
+advertised in reputable electronics publications such as this one.
+You can choose the one that fits your situation and your pocketbook.
+
+
+DESCRIPTION
+
+     The 8748H/49H lends itself well to applications that require
+I/O port activity and serial (RS-232) communications with a terminal
+or supervisory program.  This project was designed to take advantage
+of both.  Most all of the data storage and screen information are
+maintained and presented to the user by the terminal program. Any
+data or commands are sent serially at 2400 bits per second from the
+terminal program via serial port to the programmer.  The
+programmer's processor acts on the received data and returns any
+necessary data to the terminal program.  This offloads the normal
+housekeeping functions that would normally be performed by the
+programmer's processor and thus simplifies both the hardware and the
+software of the programmer module.  U1 is an RS-232
+driver/receiver.  U1's purpose is to convert the EIA signals from
+your serial port to TTL levels for the 8749H and vice versa.  The
+input serial data stream is fed into the T0 input of the 8749H while
+the output data stream is fed from I/O Port 1.0.  The combination of
+the driver/receiver IC, built-in hardware of the 8749H and firmware
+in EPROM is how the terminal program communicates with the 8748H/49H
+programmer. U2 is the microcomputer IC that controls the application
+of the proper programming voltage levels, pulses, address
+information and data to the device to be programmed, U3 (the target
+device).  As you can see we have taken advantage of the latching
+bidirectional port architecture.  These bidirectional ports latch
+output data and read input data that is latched onto an external
+port by another device.  The principal is identical to the
+traditional use of a 74LS373 octal latch used as an output port and
+a companion 74LS244 used as an input port.  There are no external
+latches or address decode circuitry used in either the data bus or
+control ports P1 and P2 of the programmer.  Data and address
+information are multiplexed on the bus pins AD0-AD7.  The bus pins
+behave in a similar fashion to the bidirectional port pins but tend
+to be more TTL-like in nature.  If you get a data sheet, study the
+differences in internal hardware construction as it pertains to the
+bus and quasi-bidirectional I/O ports.  In the case of the
+programmer hardware, the target, U3, and main processor, U2,
+alternately latch output data on their respective busses to be read
+by the opposing processor's bus.  Address pins A8-A10 are actually
+U2's I/O port pins P.0-P.2 and are used as latched output pins.  I/O
+port P1 is used to control the transistor pairs that supply the
+correct programming voltages to the target device.  Since all of the
+bidirectional I/O pins can drive one TTL load, port P1 is also used
+to set up TTL logic levels on U2's port pins P1.4-P1.6 that connect
+to the target device directly.  Power for U1 and U2 is supplied via
+voltage regulator V1 and associated circuitry.  Crystal X1 along
+with the two 27pF capacitors supply the feedback path for the
+on-chip oscillator.  Since precise clock periods are required to
+generate timing for the serial data stream and programming pulses, a
+crystal controlled oscillator is essential.
+
+     The 1 uF tantalum capacitor is the microcomputer reset
+capacitor.  Note the absence of the reset switch. Don't be tempted
+to add one.  If the power is toggled or the processor is reset while
+a target device is socketed, permanent damage will result to the
+target due to transient voltages on the transistor pairs generated
+by a main processor reset.  Therefore, NEVER apply or terminate
+power while a target is socketed.  You may add a reset switch across
+the 1 uF capacitor in the example circuits included in this article.
+U3, the device to be programmed, can be either a 8748H or 8749H.
+You select the type when you run the terminal program.  The target
+device needs +5, +18 and +21 volt DC power sources to effect the
+programming/verify process.  These voltages are derived from voltage
+regulators V2, V3 and V4.  V2 and V3 are standard LM317
+configurations that supply the high voltages using the low power
+"LZ" version of the LM317 device.  Transistor pairs Q3-Q4, Q5-Q6 and
+Q7-Q8 provide the high voltage switching functions necessary for the
+programming and verification of the target device.  Voltage
+regulator V4 supplies +5 volts DC to the target during programming
+and verification.  Light emitting diode LED1 is active when power is
+applied to the target device.  Transistor pair Q1-Q2 is used to
+switch all power to the target device, U3.  I found during testing
+that the target 8748H/49H could indeed be inserted and removed with
+target +5 power on, but it pays to be careful so I added the
+fail-safe power feature for U3.  In that the 8748H/49H is not a
+static device, it needs a clock signal to move data internally.
+Crystal X2 along with its 27pF capacitors are employed to supply an
+internal clock signal for the target device.  Any crystal between 3
+and 4 MHz will suffice here.  The target clock period is not
+critical to the programming process. The sequence used to program U3
+is similar to programming an ordinary EPROM.  First of all, the
+target device is powered up in program mode.  Address information is
+passed to the target by U2.  Then, data information is latched out
+of U2 to the target.  A program pulse is applied to the target PROG
+pin and the verification process follows.  If verification is good,
+then the process is repeated for the next byte and so on. In
+summary, U1 converts EIA RS-232 voltage levels to TTL voltage levels
+and vice versa.  U2 provides communication with the terminal program
+via a 2400 bits per second serial link, provides address and data
+information to the target, provides precisely timed pulses to the
+target and provides voltage switching information to the transistor
+pairs that interface with the target.  U3 is programmed with the
+data you specify using the terminal program in conjunction with U2.
+All of this is done with a single component microcomputer on a single
+sided board!
+
+
+CONSTRUCTION
+
+     Begin construction by etching and drilling the printed circuit
+board.  You may also purchase a professionally fabricated printed
+circuit board from the author.  Since the programmer relies heavily
+on voltages that are within specific tolerances, start assembly by
+installing power supply diodes D1-D4 and filter capacitor C1.  Mount
+the switch S1 and connect the 18 VAC transformer.  With no other
+components mounted other than what is mentioned above, you should
+have a full wave bridge circuit that is providing +25 volts DC
+measured across the terminals of C1.  Once you are satisfied that
+this portion is functioning properly, install voltage regulator V1
+and bypass capacitor C11.  Be sure to install a heatsink on V1.
+Apply power and measure the output of V1.  You should have +5 volts
+DC on the output pin of V1.  If this is true, assemble the rest of
+the high voltage power supply components R1-R4, C2, C12, V2, V3 and
+V4.  To check the voltage levels at the high voltage and target
+regulators you must also install transistor pair Q1-Q2 since this
+pair supplies all power to the target device. Also install both
+LED's and their associated current limiting resistors, R11 and R14.
+Once all of the power components are installed, apply power with no
+IC's installed and both LED's should illuminate.  You should be able
+to read the voltages on the outputs of the LM317LZ's and V4.  You
+may now jumper the input resistor to the base of Q1 to +5 which
+should turn off power to the target device and extinguish LED1.
+This simulates a high TTL level that would normally come from the
+main processor, U2, and verifies that the target power shutoff
+circuitry is working properly.  Finish the assembly by installing
+the remaining transistor pairs.  You may test the transistor pairs
+and their switching functionality by jumpering the base input
+resistors of the transistor pairs to +5 and noting the change in
+output voltage at the pair's open emitter output.  The VDD pair
+should toggle between +21 and +5.  The Program Pulse pair should
+toggle between +18 and float.  The EA pair should toggle between +18
+and +5 volts.  If this is not so, make sure that you have installed
+blocking diodes D5 and D6 and recheck your work. BP1 is laid out to
+be used with a modified right angle DB-25 shell connector.  You do
+not have to use a connector, you may solder your cable directly to
+the pads if you wish.  If you do decide to add the DB-25 connector,
+cut off all of the pins except pins 2, 3, and 7.  Install the DB-25
+connector and secure it with the appropriate nuts and bolts.  Note
+that no holes are provided for the DB-25 mounting hardware because
+of the many different styles of connectors.  Install your DB-25
+connector and drill mounting holes appropriately.  There is plenty
+of room to mount just about any type of connector you require.
+Double check all voltages to pins on U1 and U2.  When you are
+satisfied that all is well, install IC's U1 and U2.  Apply power and
+LED2, the main power LED, should illuminate.  LED1 should not
+illuminate indicating that U2 has initialized the high voltage
+transistor pair Q1-Q2 properly and no voltage is present at the
+target U3.  Connect the serial port to the programmer's serial
+connections and execute the terminal program at this time.  If all
+is well, "READY FOR COMMAND" should appear on your screen.  This
+indicates that the terminal program has established communications
+with the programmer.  If you get the "READY FOR COMMAND" message
+odds are all is OK at this point.  If "UNABLE TO COMMUNICATE WITH
+PROGRAMMER" appears, something is not right with the programmer or
+your serial port connections.  Check that programmer power is on and
+double check your construction of the programmer module and serial
+cable.
+
+
+USING THE PROGRAMMER
+
+     Power on the programmer and start the terminal program.  The
+terminal program is DOS based, so you may have to modify the source
+code that is supplied to fit your situation.  There is an assembler
+version available for those of you that do not have to convert.  You
+should get "READY FOR COMMAND" on the screen.  You may socket the
+target device any time after you power on and any time LED1 is not
+on.  Note the list of commands.  You may execute a command by typing
+the letter contained in parentheses preceding the command. I will
+not insult your intelligence by leading you by the hand through the
+command list as I have written the terminal program to be obvious to
+the user as to what to do.  For those of you not familiar with
+programming any sort of programmable device, the basic steps are:
+
+     1.  Make sure the device is blank.
+     2.  Load the binary image of the file you want to program into
+         the terminal program.
+     3.  Program the device.
+
+     I have included some sample programs and circuits that use the
+8748H in a minimum mode configuration. The intent here is to allow
+you to enter the machine code into a file using a binary editor and
+then program that file into a target 8748H.  This eliminates the
+initial need for a cross assembler and gives you the opportunity to
+experiment with a minimum of cost and effort.  The circuits
+presented will drive home the advantage of the hobbyist using an
+integrated microcomputer like the 8748H and are simple enough to be
+built on an experimenter's breadboard.
+ 

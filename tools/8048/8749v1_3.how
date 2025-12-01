@@ -1,0 +1,26 @@
+
+
+            How To Print The Schematic and Layout Files In :
+                     8749v1_3.zip And 8749v13a.zip
+
+Consider the .hpl's as HPLaser printer dump files:
+Consider the .prn's as HPLaser printer dump files.
+Consider the .plt's to be HPGL plotter dump files.
+The files in 8749v1_2.zip may be either or other!! Simon won't say! 8-)^
+
+To Print, Have the Appropriate Device on LPTn: , and enter this:
+C:\> TYPE FILENAME.hpl > LPTn:    'Where "n" is the Parallel Port Number.
+Or:
+C:\> COPY FILENAME.hpl LPTn:      'Where "n" is the Parallel Port Number.
+
+If you don't have any of those devices, or compatibles, then:
+Utilize the package: PRINTGL found on my site as UTLS/printgl.*
+
+Enjoy,
+-Steve
+--
+-Steve Walz  rstevew@armory.com  ftp://ftp.armory.com:/pub/user/rstevew
+-Electronics Site!! 1000 Files/50 Dirs!! http://www.armory.com/~rstevew
+Europe:(Italy) ftp://ftp.cised.unina.it:/pub/electronics/ftp.armory.com
+
+

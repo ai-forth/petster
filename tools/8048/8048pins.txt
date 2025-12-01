@@ -1,0 +1,68 @@
+
+             --The 8048 Clearing House (Pinout and Data Sheets)--
+                                       
+Pinout
+
+              __________    __________
+             _|         \__/         |_
+     T0 |_|1                   40|_| Vcc (+5V)
+             _|                      |_
+  --> XTAL1 |_|2                   39|_| T1  XTAL2 |_|3                   38|_|
+ P27
+      _____  _|                      |_
+  --> RESET |_|4                   37|_| P26
+         __  _|                      |_
+     --> SS |_|5                   36|_| P25
+        ___  _|                      |_
+    --> INT |_|6                   35|_| P24
+             _|                      |_
+     --> EA |_|7                   34|_| P17
+         __  _|                      |_
+
+       ____  _|                      |_
+
+         __  _|         8049         |_
+
+             _|         8749         |_
+
+             _|         8039         |_
+    DB0 |_|12                  29|_| P12
+             _|                      |_
+    DB1 |_|13                  28|_| P11
+             _|                      |_
+    DB2 |_|14                  27|_| P10
+             _|                      |_
+    DB3 |_|15                  26|_| Vdd
+             _|                      |_
+    DB4 |_|16                  25|_| PROG
+             _|                      |_
+    DB5 |_|17                  24|_| P23
+             _|                      |_
+    DB6 |_|18                  23|_| P22
+             _|                      |_
+    DB7 |_|19                  22|_| P21
+             _|                      |_
+  (GND) Vss |_|20                  21|_| P20
+              |______________________|
+
+Adapted from an original file written by:
+
+     Jonathan Bowen
+     Programming Research Group
+     Oxford University Computing Laboratory
+     8-11 Keble Road
+     Oxford OX1 3QD
+     England
+
+     Tel +44-865-273840
+
+     Copyright (C) J.P.Bowen 1985
+     (used without permission; hope he doesn't mind!)
+
+Data Sheets
+
+   If anyone has these in PDF format let me know!
+   
+     _________________________________________________________________
+                                      
+                      Back to The 8048 Clearing House 

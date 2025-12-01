@@ -1,0 +1,273 @@
+
+        --The 8048 Clearing House (Architecture and Instruction Set)--
+                                       
+Architecture
+
+   The 8048 family has a register-based architechture (as opposed to a
+   stack-based) with an accumulator, two register banks, a program status
+   word (PSW), a stack, interrupt vectors and a timer/counter section.
+   I'll explain each of these items then present a table with the
+   instruction set.
+   
+     * Accumulator - The accumulator (A) is the primary register in the
+       8048 and can perform the following operations:
+          + Add with or without carry
+          + AND, OR and Exclusive OR
+          + Increment/decrement
+          + Bit complement
+          + Rotate left or right
+          + Swap nibbles
+          + BCD decimal adjust
+     * Register Banks - Depending on the particular chip you will have
+       64, 128 or 256 8-bit bytes to work with. All numbers (unless
+       otherwise noted) are decimal. Memory location 0 corresponds to
+       register 0 (R0), location 1 corresponds to register 1 (R1) and so
+       on up to location 7. There is also a second register bank starting
+       at location 24 and going up to location 31. The register banks are
+       selected with the SEL RB0 and SEL RB1 instructions and are useful
+       for interrupt processing since users cannot save data to the
+       stack. The stack is stored in locations 8 through 23 and the
+       pointer is stored in the PSW. Any RAM at or above location 32 is
+       for the user. If the second bank of registers or the stack will
+       not be used the user can also use these locations. R0 and R1 are
+       pointer registers and have special instructions associated with
+       them.
+
+     63 |-----------------------|
+  (127) |                       |
+((255)) | USER RAM              |
+        | 8 x 32 (96) or (224)  |
+        |                       |
+     32 |                       |
+        +-----------------------|
+     31 |                       |
+        | BANK 1 REGISTERS      |
+        |                       |
+        | R1                    |
+     24 | R0                    |
+        +-----------------------|
+     23 |                       |
+        | 8 LEVEL STACK or      |
+        | USER RAM              |
+        | 8 x 16                |
+      8 |                       |
+        +-----------------------|
+      7 |                       |
+        | BANK 0 REGISTERS      |
+        |                       |
+        | R1                    |
+      0 |-R0--------------------|
+     * PSW - The PSW has eight bits defined as follows:
+       Bits 0 - 2: Stack pointer bits (S0, S1, S2)
+       Bit 3: Not used (level "1" when read)
+       Bit 4: Working register bank (0 = bank 0, 1 = bank 1)
+       Bit 5: User controlled flag (F0)
+       Bit 6: Auxiliary carry (used by DA A instruction)
+       Bit 7: Carry flag (indicates an overflow)
+     * Interrupt Vectors - There are three interrupt vectors in program
+       memory. Location 0 will be fetched after the *RESET line of the
+       processor is pulled low. Location 3 will be fetched when the *INT
+       line is pulled low (after the current instruction is finished
+       executing). And, finally, location 7 is fetched when the
+       timer/counter overflows (if enabled). Usually, the interrrupt
+       vector location will contain a jump instruction to the actual
+       handling routine. Use the RETR (Return and Restore PSW) to return
+       from an interrupt.
+     * Timer/Counter - The timer/counter can be operated in either timer
+       mode or counter mode. In either mode it functions the same the
+       only difference is the source of input to the counter. The counter
+       value may be affected by a reset and should be reset with
+       software. As an event counter the T1 input is connected to the
+       counter and a high to low transition will increment the counter.
+       As a timer, the machine cycle clock is passed through a
+       divide-by-32 prescaler and then sent to the counter.
+     * Input/Output - There are two 8-bit ports (P1 and P2) which are
+       quasi-bidirectional. Data written to these ports is statically
+       latched until rewritten. To use the port as an input you must
+       first write a "1" to the bit being used as an input. The BUS is a
+       true 8-bit bidirectional port with input and output strobes. Input
+       and output cannot be mixed on the BUS. Additionally, BUS can be
+       used to expand the basic 8048 system (not discussed here--use a
+       bigger microcontroller).
+       
+Instruction Set (Contributed by Peter Horne)
+
+   I/O COMMANDS
+   Mnemonic Operands Bytes C AC Operation Performed
+   ANL PORT,#DATA 2     AND immediate data with I/O port P1, P2 or BUS
+   ANL BUS,#DATA 2     AND immediate data with BUS Port
+   ANLD EP,A 1     AND expander port P4, P5, P6 or P7 with Accumulator
+   bits 0-3
+   IN A,PN 1     Input I/O Port P1 or P2 to Accumulator
+   INS A,BUS 1     Input BUS to Accumulator with strobe
+   MOVD A,EP 1     Input expander port P4, P5, P6 or P7 to Accumulator
+   bits 0-3
+   MOVD EP,A 1     Output Accumulator bits 0-3 to expander port P4, P5,
+   P6 or P7
+   ORL PORT,#DATA 2     OR immediate data with I/O port P1, P2 or BUS
+   ORL BUS,#DATA 2     OR immediate data with BUS Port
+   ORLD EP,A 1     OR expander port P4, P5, P6 or P7 with Accumulator
+   bits 0-3
+   OUT DBB,A 1     Output from Accumulator to Data Bus buffer
+   OUTL PORT,A 1     Output accumulator contents to I/O port P1, P2 or
+   BUS
+   
+   PRIMARY MEMORY REFERENCE
+   Mnemonic Operands Bytes C AC Operation Performed
+   MOV A,@R 1     Load contents of scratchpad byte addressed by R0 or R1
+   into Accumulator
+   MOV @R,A 1     Store Accumulator contents in scratchpad byte addressed
+   by R0 or R1
+   MOVP A,@A 1     Load into theAccumulator the contents of the program
+   memory byte
+   addressed by the Accumulator and Program Counter bits 8-11
+   MOVP3 A,@A 1     Load into theAccumulator the contents of the program
+   memory byte withbinary address 0011XXXXXXXX where XXXXXXXX represents
+   the initial Accumulatorcontents
+   MOVX A,@R 1     Load contents of external data memory byte addressed
+   by R0 or R1 intoAccumulator
+   MOVX @R,A 1     Store Accumulator contents of external data memory
+   byte addressed byR0 or R1
+   XCH A,@R 1     Exchange Accumulator contents with scratchpad memory
+   byte addressedby R0 or R1
+   XCHD A,@R 1     Exchange Accumulator contents bits 0-3 with scratchpad
+   memory byteaddressed by R0 or R1
+   SECONDARY MEMORY REFERENCE
+   Mnemonic Operand(s) Bytes C AC Operation Performed
+   ADD A,@R 1 X X Add contents of scratchpad byte addressed by R0 or R1
+   to Accumulator
+   ADDC A,@R 1     Add contents of scratchpad byte addressed by R0 or R1,
+   plus Carry,to Accumulator
+   ANL A,@R 1     AND contents of scratchpad byte addressed by R0 or R1
+   to Accumulator
+   ORL A,@R 1     OR contents of scratchpad byte addressed by R0 or R1 to
+   Accumulator
+   XRL A,@R 1     Exclusive OR contents of scratchpad byte addressed by
+   R0 or R1 to Accumulator
+   INC A,@R 1     Increment the contents of scratchpad byte addressed by
+   R0 or R1
+   
+   IMMEDIATE
+   Mnemonic Operand(s) Bytes C AC Operation Performed
+   MOV REG,#DATA 2     Load immediate data into Accumulator, or Register
+   R0, R1, R2, R3, R4,R5, R6, or R7
+   MOV @R,#DATA 2     Load immediate data into scratchpad byte addressed
+   by R0 or R1
+   
+   JUMP
+   Mnemonic Operand(s) Bytes C AC Operation Performed
+   JMP ADDR 2     Jump to instruction in current 2K block having lanel
+   ADDR
+   JMPP @A 1     Load into the eight low order Program Counter bits the
+   contents oftheprogram memory byte addressed by the Accumulator and the
+   four high orderProgram Counter bits
+   SEL MB0 1     With the next JUMP or CALL instruction, reset the high
+   order bit ofPC to 0, thus selecting the first 2K program memory bytes
+   SEL MB1 1     With the next JUMP or CALL instruction, reset the high
+   order bit ofPC to 0, thus selecting the second 2K program memory bytes
+   
+   SUBROUTINE CALL AND RETURN
+   Mnemonic Operand(s) Bytes C AC Operation Performed
+   CALL ADDR 2     Call subroutine at specified address
+   RET   1     Return from subroutine without restoring status
+   RETR   1     Return from subroutine and restore status
+   
+   IMMEDIATE OPERATE
+   Mnemonic Operand(s) Bytes C AC Operation Performed
+   ADD A,#DATA 2  X  X Add immediate data to Accumulator
+   ADDC A,#DATA 2  X X  Add immediate data plus Carry to Accumulator
+   ANL A,#DATA 2     AND immediate data with Accumulator contents
+   ORL A,#DATA 2     OR immediate data with Accumulator contents
+   XRL A,#DATA 2     Exclusive OR immediate data with Accumulator
+   contents
+   
+   JUMP ON CONDITION
+   Mnemonic Operand(s) Bytes C AC Operation Performed
+   DJNZ RN,ADDR8 2     Decrement Register R0, R1, R2, R3, R4, R5, R6, or
+   R7. If the reultis not 0, branch to ADDR8 on the current program
+   memory page
+   JBb ADDR8 2     Jump on current page if Accumulator bit b is 1. b must
+   be 0, 1, 2,3, 4, 5,  6 or 7
+   JC ADDR8 2     Jump on current page if Carry is 1
+   JF0 ADDR8 2     Jump on current page if flag F0 is 1
+   JF1 ADDR8 2     Jump on current page if flag F1 is 1
+   JNC ADDR8 2     Jump on current page if Carry is 0
+   JNI ADDR8 2     Jump on current page if Interrupt request input is 0
+   JBIBF ADDR8 2     Jump on current page if IBF flag is 0
+   JNT0 ADDR8 2     Jump on current page if T0 input is 0
+   JNT1 ADDR8 2     Jump on current page if T1 input is 0
+   JNZ ADDR8 2     Jump on current page if Accumulator contents are
+   nonzero
+   JOBF ADDR8 2     Jump on current page if OBF flag is 0
+   JTF ADDR8 2     Jump on current page if timer has timed out, i.e. if
+   timer flag is1. The timer flag is reset to 0 by this instruction
+   JT0 ADDR8 2     Jump on current page if T0 input is 0
+   JT1 ADDR8 2     Jump on current page if T1 input is 0
+   JZ ADDR8 2     Jump on current page if Accumulator contents are zero
+   
+   REGISTER-REGISTER MOVE
+   Mnemonic Operand(s) Bytes C AC Operation Performed
+   MOV A,RN 1     Move the contents of a general purpose register to the
+   Accumulator
+   MOV RN,A 1     Move the contents of the Accumulator to a general
+   purpose register
+   XCH A,RN 1     Exchange the contents of the Accumulator with the
+   contents of a generalpurpose register
+   REGISTER-REGISTER OPERATE
+   Mnemonic Operand(s) Bytes C AC Operation Performed
+   ADD A,RN 1 X X Add the contents of a general purpose register to the
+   Accumulator
+   ADDC A,RN 1 X X Add the contents of a general purpose register, plus
+   Carry, to theAccumulator
+   ANL A,RN 1     AND the contents of a general purpose register with the
+   Accumulator
+   ORL A,RN 1     OR the contents of a general purpose register with the
+   Accumulator
+   XRL A,RN 1     Eexclusive or the contents of a general purpose
+   register with the Accumulator
+   REGISTER OPERATE
+   Mnemonic Operand(s) Bytes C AC Operation Performed
+   CLR A 1     Zero the Accumulator
+   CPL A 1     Complement the Accumulator
+   DAA A 1     Decimal adjust the Accumulator
+   DEC RN 1     Decrement the contents of the general purpose register
+   DEC A 1     Decrement the contents of the Accumulator
+   INC REG 1     the contents of the the Accumulator or general purpose
+   register
+   RL A 1 X   Rotate Accumulator left
+   RLC A 1     Rotate Accumulator left through Carry
+   RR A 1     Rotate Accumulator right
+   RRC A 1 X   Rotate Accumulator right through Carry
+   SEL RB0 1     Select register bank 0
+   SEL RB1 1     Select register bank 1
+   SWAP A 1     Swap Accumulator nibbles
+   INTERUPTS
+   Mnemonic Operand(s) Bytes C AC Operation Performed
+   DIS TCNTI 1     Disable timer interrupt
+   EN TCNTI 1     Enable timer interrupt
+   DIS I 1     Disable external interrupts
+   EN I 1     Enable external interrupts
+   TIMER
+   Mnemonic Operand(s) Bytes C AC Operation Performed
+   ENT0 CLK 1     Enable timer output on T0 until next system reset
+   MOV A,T 1     Read timer/counter
+   MOV T,A 1     Load timer/counter
+   STOP TCNT 1     Stop timer/counter
+   STRT CNT 1   Start  counter
+   STRT T 1   Start counter
+   
+   FLAGS
+   Mnemonic Operand(s) Bytes C AC Operation Performed
+   CLR S 1     Clear F0 or F1
+   CLR C 1 0    Clear PSW bit C
+   CPL S 1     Complement F0 or F1
+   CPL C 1  X   Complement PSW bit C
+   MOV A,PSW 1     Move Program Status Word to Accumulator
+   MOV PSW,A 1  X X  Move Accumulator to Program Status Word
+   NO OPERATION
+   Mnemonic Operand(s) Bytes C AC Operation Performed
+   NOP   1     No Operation
+   
+     _________________________________________________________________
+                                      
+                      Back to The 8048 Clearing House 

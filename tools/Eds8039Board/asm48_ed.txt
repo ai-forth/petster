@@ -1,0 +1,41 @@
+
+From: "Ed" <edsa@alphalink.com.au>
+To: "R. Steve Walz" <rstevew@armory.com>
+Subject: Re: ASM48
+Date: Wed, 25 Sep 2002 18:07:05 +1000
+
+> Ed wrote:
+> > 
+> > Hi Steve,
+> > Some time ago I believe I sent you a copy of ASM48V11 - an
+> > 8048/41 cross-assembler than run under CP/M.
+> > 
+> > I've just converted it to for MS-DOS.  If you'd like a copy, let
+> > me know and I'll email it.
+> ---------------
+> Sure, I'd love a copy, I'll put it on my site with your other stuff
+> if you like!
+
+Yes, that'd be fine.  Thanks.
+I've attached new DOS and CP/M versions.
+
+I created the DOS version by passing the CP/M source through
+a 8080 to 8086 translator and then manually adjusting what needed
+to be changed.  Only took a couple of days.
+
+The DOS version retains the old DOS 1.x style FCB calls.
+I've tested it under Win98SE and it works fine.  (I recall
+someone once claiming that FCB calls don't work on some
+versions of Windows - I don't know which that might be
+though.)
+
+If you still remember how to use CP/M ASM then you'll
+have no problems using these progs :)
+
+regards,
+Ed
+
+	filename="ASM48DOS.ZIP"
+
+	filename="ASM48CPM.ZIP"
+

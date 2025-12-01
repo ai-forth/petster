@@ -1,0 +1,16 @@
+Archive:  8749v1_3.zip
+ Length  Method   Size  Ratio   Date    Time   CRC-32     Name ("^" ==> case
+ ------  ------   ----  -----   ----    ----   ------     ----   conversion)
+ 205696  Implode  11848  94%  07-23-97  10:47  e93ac91e  ^epromdrw.hpl
+ 401989  Implode  14916  96%  07-23-97  10:01  f8300444  ^eprombot.hpl
+   5574  Implode   1787  68%  07-23-97  10:37  b1d38631  ^eprommer.pas
+ 401989  Implode  14638  96%  07-23-97  09:24  486fa908  ^epromovl.hpl
+ 101976  Implode  31316  69%  07-23-97  10:47  f7b05801  ^epromdrw.plt
+ 401989  Implode  12149  97%  07-23-97  09:27  7514b32e  ^epromtop.hpl
+  25618  Implode   7973  69%  07-23-97  09:38  2536397d  ^epromovl.plt
+  36670  Implode   9980  73%  07-23-97  09:41  03748c66  ^eprombot.plt
+   9619  Implode   2863  70%  07-23-97  09:42  1f1fe189  ^epromtop.plt
+    624  Implode    447  28%  07-23-97  10:29  60806626  ^readme.txt
+   7392  Implode   4954  33%  07-21-97  19:38  4197f945  ^eprommer.exe
+ ------          ------  ---                              -------
+1599136          112871  93%                              11     
